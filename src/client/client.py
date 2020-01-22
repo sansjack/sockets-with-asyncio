@@ -7,9 +7,8 @@ def send_message():
 
 
 starting_requests = {
-    "start_connection": "start_connection",
-    "some_info" : send_message()
-
+    "start_connection": "start_connection", ## init function
+    "some_info" : send_message() # the message we want to send but wraped in a function
 }
 
 print(" -- CLIENT -- ") # this is so we know which one is the client console
@@ -21,8 +20,8 @@ class Server:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         try:
-            self.sock.connect((self.host_ip, self.host_port))
-            self.sock.settimeout(1)
+            self.sock.connect((self.host_ip, self.host_port)) # connects to the hosts ip and port 
+            self.sock.settimeout(1)# sets timeout to 1 second
         except:
             pass
 
@@ -33,18 +32,18 @@ class Server:
         self.sock.close() 
 
     def receive_data(self):
-        buffer_size = 256
-        data = b''
+        buffer_size = 256 # the buffer size
+        data = b'' # makes sure the data is in bytes
         while True:
             try:
-                chunk = self.sock.recv(buffer_size)
+                chunk = self.sock.recv(buffer_size) # sends it to the socket in chunks as this is how TCP works
             except:
                 break
-            data += chunk
+            data += chunk # adds it to the string of bytes each loop
             if len(chunk) == 0:
                 break
         try:
-            text_dict = ast.literal_eval(data.decode())
+            text_dict = ast.literal_eval(data.decode()) # uses ast.literal_eval to check if its a python datatype 
             return text_dict
         except:
             return None
@@ -66,6 +65,7 @@ while True:
     if (s.is_connected()):
         s.send_data(starting_requests) # sending our requests which is to call the starting function on the server (the initiation function )
         data = s.receive_data() # getting everything recived an storing it in an varible
+        # if no data recived then tell the client that there was none then close the program
         if (data == None):
             print("No Data Recived :(")
             input("") # pauses the connection
@@ -77,5 +77,5 @@ while True:
         input("Currently Unconnectable :/") #This means the client was refused or the server script is not running
         quit()
 else:
-    input("Failed to connect you have tried more than 2 times!")
+    input("Failed To Connect") 
     quit()
