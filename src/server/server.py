@@ -13,7 +13,7 @@ class Server(asyncio.Protocol):
         self.address = transport.get_extra_info("peername") #self.address returns a list which has two index IP = [0] and PORT [1]
         self.transport = transport
 
-        self.requests = { "start_connection": self.start_connection } # this is the dict which stores the 
+        self.requests = { "start_connection": self.start_connection } # this is the dict which stores the the server functions
         self.to_client = {} # this is a dict which will store all the data we are going to send to the client
 
     def connection_lost(self, exception):
