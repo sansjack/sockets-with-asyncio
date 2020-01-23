@@ -1,5 +1,5 @@
 # sockets-with-asyncio
-## What it Is?
+## What it is?
 This is an example of how to use pythons built in module asyncio by using asyncio.Protocol to create A TCP server
 
 ## What it does?
